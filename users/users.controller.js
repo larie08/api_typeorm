@@ -4,9 +4,6 @@ const Joi = require('joi');
 const validateRequest = require('_middleware/validate-request');
 const Role = require('_helpers/role');
 const userService = require('./user.service');
-const { update } = require('lodash');
-const { title } = require('process');
-
 
 router.get('/',getAll);
 router.get('/:id', getById);
@@ -23,6 +20,12 @@ function getAll(req, res, next){
         .catch(next);
 }
 
+function getById(req, res, next){
+    userService.getById(req.params.id)
+        .then(user => res.json(user))
+        .catch(next);
+}
+
 function create(req, res, next){
     userService.create(req.body)
         .then(() => res.json({ message: 'User created'}))
@@ -31,13 +34,13 @@ function create(req, res, next){
 
 function update(req, res, next) {
     userService.update(req.params.id, req.body)
-        .then(() => res.json({message: 'User updated'}))
+        .then(() => res.json({ message: 'User updated' }))
         .catch(next);
 }
 
 function _delete(req, res, next) {
     userService.delete(req.params.id)
-        .then(() => req.json({message: 'User deleted'}))
+        .then(() => req.json({ message: 'User deleted' }))
         .catch(next);
 }
 
@@ -59,7 +62,7 @@ function updateSchema(req, res, next) {
         title: Joi.string().empty(''),
         firstName: Joi.string().empty(''),
         lastName: Joi.string().empty(''),
-        role: Joi.string().valid(Role.Admin, Role.User).empty(),
+        role: Joi.string().valid(Role.Admin, Role.User).empty(''),
         email: Joi.string().email().empty(''),
         password: Joi.string().min(6).empty(''),
         confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')

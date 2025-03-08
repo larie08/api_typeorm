@@ -9,7 +9,7 @@ module.exports = {
     delete: _delete
 };
 
-async function getall() {
+async function getAll() {
     return await db.User.findAll();
 }
 
@@ -34,7 +34,7 @@ async function update(id, params) {
 
     const usernameChanged = params.username && user.username !== params.username;
     if (usernameChanged && await db.User.findOne({ where: { username: params.username } })){
-        throw 'Usernhame "' + params.username + '" is already taken';
+        throw 'Username "' + params.username + '" is already taken';
     }
 
     if (params.password){
