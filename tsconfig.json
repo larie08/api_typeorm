@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "strict": true, 
+      "esModuleInterop": true, 
+      "experimentalDecorators": true, 
+      "emitDecoratorMetadata": true,
+      "outDir": "./dist", 
+      "rootDir": "./src",
+      "baseUrl": ".",
+      "paths": {
+        "_middleware": ["./scrc/middleware/*"],
+        "_helpers": ["./src/helpers/*"],
+      }
+    },
+    "include": ["src/**/*"], 
+    "exclude": ["node_modules"] 
+  }
